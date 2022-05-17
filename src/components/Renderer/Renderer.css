@@ -1,0 +1,5 @@
+.renderer {
+    width: 100vw;
+    display: flex;
+    flex: 1 1 auto;
+}
