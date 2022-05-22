@@ -20,7 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": [
-      "babylonjs"
+      "babylonjs",
+      "babylonjs-loaders"
     ]
   },
   "include": [

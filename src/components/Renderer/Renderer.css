@@ -1,5 +1,13 @@
+.renderer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .renderer {
     width: 100vw;
     display: flex;
     flex: 1 1 auto;
+    min-height: 0;
+    max-height: 100vh;
 }
