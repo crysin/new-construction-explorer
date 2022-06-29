@@ -6,6 +6,7 @@ import Timeline from './components/Timeline/Timeline';
 import { AppContext, AppContextProvider } from "./context/AppContext"
 import { IData } from './dto/IData';
 import { Mission } from './models/Mission';
+import ScanList from './components/scan/ScanList';
 
 function App() {
   const [missions, setMissions] = useState<Mission[] | undefined>(undefined);
@@ -17,8 +18,9 @@ function App() {
   return (
     <div className="App">
       <AppContextProvider>
+        <ScanList missions={missions}></ScanList>
         <Renderer>
-          <Timeline missions={missions}/>
+          {/* <Timeline missions={missions}/> */}
         </Renderer>
       </AppContextProvider>
 
