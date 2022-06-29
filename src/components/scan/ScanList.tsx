@@ -19,18 +19,22 @@ function ScanList({missions}: Props) {
     const context = useContext(AppContext);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+    const selectMission = (missionIndex: number) => {
+        const mission = missions != undefined ? missions[missionIndex] : undefined;
+        context?.setMission(mission);
+        setSelectedIndex(missionIndex);
+    };
+
     const handleListItemClick = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
         step: number
     ) => {
-        const mission = missions != undefined ? missions[step] : undefined;
-        context?.setMission(mission);
-        setSelectedIndex(step);
+        selectMission(step);
     };
 
     useEffect(() => {
         if (missions != undefined) {
-            setSelectedIndex(missions.length - 1);
+            selectMission(missions.length - 1);
         }
     }, [missions])
 

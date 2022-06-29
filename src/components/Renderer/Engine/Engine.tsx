@@ -21,7 +21,7 @@ class Engine {
     private scene?: Scene = undefined;
     private model?: string = undefined;
     private dracoCompression = new DracoCompression();
-
+    private currentRoot?: TransformNode = undefined;
     constructor() {
         this.init();
     }
@@ -42,22 +42,29 @@ class Engine {
             return;
         }
 
+        
         SceneLoader.ImportMesh("", "models/", model, Engine.instance?.scene, (meshes) => {
-            meshes.forEach(m => {
-                console.log(m.getPositionExpressedInLocalSpace());
-            });
-            console.log(meshes);
-            const root = Engine.instance?.scene?.getNodeByName("__root__") as TransformNode;
-            console.log("ROOT", root);
-            if (Boolean(root)) {
-                root.rotationQuaternion = null;
-                root.rotation = new Vector3(Angle.FromDegrees(180).radians(), 0, 0);
-                //root.rotate(Vector3.Up(), 180);
-            }
+            Engine.instance?.clearMap();
+            Engine.instance?.onMapLoaded();
         });
 
         if (Engine.instance !== undefined) {
             Engine.instance.model = model;
+        }
+    }
+
+    private clearMap() {
+        if (Boolean(this.currentRoot)) {
+            this.currentRoot?.dispose();
+        }
+    }
+
+    private onMapLoaded() {
+        this.currentRoot = Engine.instance?.scene?.getNodeByName("__root__") as TransformNode;
+        if (Boolean(this.currentRoot)) {
+            this.currentRoot.rotationQuaternion = null;
+            this.currentRoot.rotation = new Vector3(Angle.FromDegrees(270).radians(), 0, 0);
+            //root.rotate(Vector3.Up(), 180);
         }
     }
 
@@ -71,7 +78,7 @@ class Engine {
         // Create a basic BJS Scene object
         this.scene = new Scene(this.babylonEngine);
         this.scene.useRightHandedSystem = true;
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
         // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
         this.camera = new ArcRotateCamera('main', 0, 0, 10, Vector3.Zero(), this.scene);
 

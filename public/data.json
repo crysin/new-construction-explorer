@@ -18,6 +18,16 @@
         },
         {
             "missionNumber": 4,
+            "date": "2022-06-06",
+            "model": "june6.glb"
+        },
+        {
+            "missionNumber": 5,
+            "date": "2022-06-10",
+            "model": "june10.glb"
+        },
+        {
+            "missionNumber": 6,
             "date": "2022-06-25",
             "model": "june25.glb"
         }
