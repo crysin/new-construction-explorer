@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "missions": [
+        {
+            "missionNumber": 1,
+            "date": "2022-05-08",
+            "model": "may8.glb"
+        },
+        {
+            "missionNumber": 2,
+            "date": "2022-05-13",
+            "model": "may13.glb"
+        },
+        {
+            "missionNumber": 3,
+            "date": "2022-05-20",
+            "model": "may20.glb"
+        },
+        {
+            "missionNumber": 4,
+            "date": "2022-06-06",
+            "model": "june6.glb"
+        },
+        {
+            "missionNumber": 5,
+            "date": "2022-06-10",
+            "model": "june10.glb"
+        },
+        {
+            "missionNumber": 6,
+            "date": "2022-06-25",
+            "model": "june25.glb"
+        }
+    ]
+}
