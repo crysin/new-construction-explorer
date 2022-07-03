@@ -40,6 +40,11 @@
             "missionNumber": 8,
             "date": "2022-06-29",
             "model": "june29.glb"
+        },
+        {
+            "missionNumber": 9,
+            "date": "2022-07-01",
+            "model": "july1.glb"
         }
     ]
 }
