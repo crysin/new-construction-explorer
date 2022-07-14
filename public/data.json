@@ -4,12 +4,20 @@
         {
             "missionNumber": 1,
             "date": "2022-05-08",
-            "model": "may8.glb"
+            "model": "may8.glb",
+            "center": {
+                "latitude": 42.354646,
+                "longitude": -88.243322
+            }
         },
         {
             "missionNumber": 2,
             "date": "2022-05-13",
-            "model": "may13.glb"
+            "model": "may13.glb",
+            "center": {
+                "latitude": 42.354646,
+                "longitude": -88.243322
+            }
         },
         {
             "missionNumber": 3,
@@ -19,7 +27,11 @@
         {
             "missionNumber": 4,
             "date": "2022-06-06",
-            "model": "june6.glb"
+            "model": "june6.glb",
+            "center": {
+                "latitude": 42.354719,
+                "longitude": -88.243287
+            }
         },
         {
             "missionNumber": 5,
@@ -29,7 +41,11 @@
         {
             "missionNumber": 6,
             "date": "2022-06-16",
-            "model": "june16.glb"
+            "model": "june16.glb",
+            "center": {
+                "latitude": 42.354701,
+                "longitude": -88.243287
+            }
         },
         {
             "missionNumber": 7,
@@ -39,12 +55,20 @@
         {
             "missionNumber": 8,
             "date": "2022-06-29",
-            "model": "june29.glb"
+            "model": "june29.glb",
+            "center": {
+                "latitude": 42.354702,
+                "longitude": -88.243226
+            }
         },
         {
             "missionNumber": 9,
             "date": "2022-07-01",
-            "model": "july1.glb"
+            "model": "july1.glb",
+            "center": {
+                "latitude": 42.354719,
+                "longitude": -88.243275
+            }
         }
     ]
 }

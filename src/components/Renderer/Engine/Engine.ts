@@ -7,11 +7,13 @@ import {
     HemisphericLight,
     SceneLoader,
     DracoCompression,
-    Angle
+    Angle,
+    MeshBuilder
 } from 'babylonjs';
 import 'babylonjs-loaders';
 import { Camera } from 'babylonjs/Cameras/camera';
 import { TransformNode } from 'babylonjs/Meshes/transformNode';
+import { Gps } from '../../../utils/Gps';
 
 class Engine {
     private static instance?: Engine = undefined;
@@ -64,6 +66,11 @@ class Engine {
         if (Boolean(this.currentRoot)) {
             this.currentRoot.rotationQuaternion = null;
             this.currentRoot.rotation = new Vector3(Angle.FromDegrees(270).radians(), 0, 0);
+            const scene = Engine.instance?.scene!;
+            // const box = MeshBuilder.CreateBox("box", {size: 10}, scene);
+            // const pos = Gps.gpsToMeters({latitude: 42.35459, longitude: -88.24313});
+            // box.position.x = pos.x;
+            // box.position.z = pos.z;
             //root.rotate(Vector3.Up(), 180);
         }
     }
@@ -78,7 +85,9 @@ class Engine {
         // Create a basic BJS Scene object
         this.scene = new Scene(this.babylonEngine);
         this.scene.useRightHandedSystem = true;
+
         //this.scene.debugLayer.show();
+
         // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
         this.camera = new ArcRotateCamera('main', 0, 0, 10, Vector3.Zero(), this.scene);
 
