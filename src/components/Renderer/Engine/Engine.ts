@@ -8,12 +8,18 @@ import {
     SceneLoader,
     DracoCompression,
     Angle,
-    MeshBuilder
+    MeshBuilder,
 } from 'babylonjs';
+import {
+    AdvancedDynamicTexture,
+    Button
+} from 'babylonjs-gui';
 import 'babylonjs-loaders';
 import { Camera } from 'babylonjs/Cameras/camera';
 import { TransformNode } from 'babylonjs/Meshes/transformNode';
+import { Photo } from '../../../models/Photo';
 import { Gps } from '../../../utils/Gps';
+import { Coordinate } from '../../../models/Coordinate';
 
 class Engine {
     private static instance?: Engine = undefined;
@@ -36,29 +42,55 @@ class Engine {
         Engine.instance = new Engine();
     }
 
-    public static async loadMap(model: string) {
-        if (Engine.instance === undefined || 
-            model === Engine.instance?.model || 
-            model === undefined ||
-            model === "") {
-            return;
-        }
+    public static loadMap(root:string, model: string) {
+        return new Promise<void>(resolve => {
+            if (Engine.instance === undefined || 
+                model === Engine.instance?.model || 
+                model === undefined ||
+                model === "") {
+                resolve();
+            }
 
-        
-        SceneLoader.ImportMesh("", "models/", model, Engine.instance?.scene, (meshes) => {
-            Engine.instance?.clearMap();
-            Engine.instance?.onMapLoaded();
+            if (Engine.instance !== undefined) {
+                Engine.instance.model = model;
+            }
+            
+            SceneLoader.ImportMesh("", root, model, Engine.instance?.scene, (meshes) => {
+                Engine.instance?.clearMap();
+                Engine.instance?.onMapLoaded();
+                resolve();
+            });
         });
+    }
 
-        if (Engine.instance !== undefined) {
-            Engine.instance.model = model;
-        }
+    public static loadPhotos(photos: Photo[]) {
+        return new Promise<void>(resolve => {
+            photos.forEach(p => {
+                Engine?.instance?.addPhotoButton(p);
+            });
+            resolve();
+        });
     }
 
     private clearMap() {
         if (Boolean(this.currentRoot)) {
             this.currentRoot?.dispose();
         }
+    }
+
+    private addPhotoButton(photo: Photo) {
+        const position = Gps.gpsToMeters(new Coordinate({latitude: photo.latitude, longitude: photo.longitude}))
+        const plane = MeshBuilder.CreatePlane("plane", {size: 2}, Engine.instance?.scene);
+        plane.billboardMode = Mesh.BILLBOARDMODE_ALL;
+        plane.position.set(position.x, position.y, position.z);
+
+        var advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
+
+        var button1 = Button.CreateImageOnlyButton("but1", "textures/pin_colored.png");
+        button1.onPointerUpObservable.add(function() {
+            alert("you did it!");
+        });
+        advancedTexture.addControl(button1);
     }
 
     private onMapLoaded() {
@@ -117,6 +149,10 @@ export function initializeEngine() {
     Engine.initialize();
 }
 
-export function loadMap(map: string) {
-    Engine.loadMap(map);
+export function loadMap(root: string, map: string) {
+    return Engine.loadMap(root, map);
+}
+
+export function loadPhotos(photos: Photo[]) {
+    return Engine.loadPhotos(photos);
 }

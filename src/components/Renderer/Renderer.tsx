@@ -1,5 +1,5 @@
 import './Renderer.css';
-import { initializeEngine, loadMap } from './Engine/Engine';
+import { initializeEngine, loadMap, loadPhotos } from './Engine/Engine';
 import { useEffect, ReactNode, useContext } from 'react';
 import { Container } from '@mui/material';
 import { AppContext } from '../../context/AppContext';
@@ -19,7 +19,16 @@ function Renderer(props: Props) {
 
     useEffect(() => {
         Gps.setOrigin(context?.mission?.center ?? Coordinate.nullIsland());
-        loadMap(context?.mission?.model ?? "");
+        const loadData = async () => {
+            if (Boolean(context?.mission?.model)) {
+                await loadMap("mission/", context?.mission?.model!);
+            }
+            if (Boolean(context?.mission?.photos)) {
+                await loadPhotos(context?.mission?.photos!)
+            }
+        }
+
+        loadData().catch(console.error);
     }, [context?.mission])
 
     return (

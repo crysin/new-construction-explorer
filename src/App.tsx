@@ -7,14 +7,10 @@ import { AppContext, AppContextProvider } from "./context/AppContext"
 import { IData } from './dto/IData';
 import { Mission } from './models/Mission';
 import ScanList from './components/scan/ScanList';
+import { useMissions } from './hook/useMissions'
 
 function App() {
-  const [missions, setMissions] = useState<Mission[] | undefined>(undefined);
-  useEffect(() => {
-    fetch('data.json').then(r => r.json()).then((data: IData) => {
-      setMissions(data.missions.map(m => new Mission(m)));
-    });
-  }, []);
+  const missions = useMissions();
   return (
     <div className="App">
       <AppContextProvider>
